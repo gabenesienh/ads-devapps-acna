@@ -2,16 +2,26 @@
   "name": "acna",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
+    "watch": "tsc --watch",
     "start": "node ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^1.0.0-rc.4",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "less-middleware": "~2.2.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.3",
+    "drizzle-kit": "^1.0.0-rc.4",
+    "typescript": "^7.0.2"
   }
 }
