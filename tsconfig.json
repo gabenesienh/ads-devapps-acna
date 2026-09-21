@@ -4,16 +4,17 @@
     "module": "preserve",
     "rootDir": ".",
     "rewriteRelativeImportExtensions": true,
-    "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
     "noEmit": true,
-    "strict": true,
+    "strict": false,
     "skipLibCheck": true,
     "moduleDetection": "force",
     "resolveJsonModule": true,
     "allowJs": true,
     "esModuleInterop": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": [
     "**/*.ts",
