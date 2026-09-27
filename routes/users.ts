@@ -1,9 +1,9 @@
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/postgres-js';
-import { usuariosTable } from '../db/schema.ts';
+import { usuariosTable } from '@/db/schema.ts';
 
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
