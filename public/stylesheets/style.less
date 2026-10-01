@@ -1,8 +1,121 @@
+// Cores inspiradas no vBulletin clássico
+@bg-main: #e1e4e9;
+@header-bg: #3b5998;
+@header-text: #ffffff;
+@forum-cat-bg: #5c7099;
+@row-light: #f5f5f5;
+@row-dark: #ebeff3;
+@border-color: #a5cae4;
+@text-color: #000000;
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: @bg-main;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
+  color: @text-color;
+  margin: 0;
+  padding: 15px;
 }
 
-a {
-  color: #00B7FF;
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #fff;
+  border: 1px solid @border-color;
+  padding: 10px;
+}
+
+header {
+  background-color: @header-bg;
+  color: @header-text;
+  padding: 10px;
+  margin-bottom: 15px;
+  h1 { font-size: 18px; margin: 0; }
+  .user-bar { float: right; font-size: 11px; }
+}
+
+table.forum-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+
+  th {
+    background-color: @forum-cat-bg;
+    color: #fff;
+    padding: 6px 10px;
+    text-align: left;
+    font-size: 12px;
+  }
+
+  td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) { background-color: @row-light; }
+  tr:nth-child(odd) { background-color: @row-dark; }
+}
+
+.post-card {
+  border: 1px solid @border-color;
+  margin-bottom: 15px;
+  display: flex;
+
+  .post-author {
+    width: 160px;
+    background-color: @row-dark;
+    padding: 10px;
+    border-right: 1px solid @border-color;
+    font-size: 11px;
+    .avatar { width: 80px; height: 80px; background: #ccc; margin-bottom: 5px; }
+    .badge { font-weight: bold; color: #d9534f; }
+  }
+
+  .post-body {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .post-header {
+      font-size: 10px;
+      color: #666;
+      border-bottom: 1px dashed #ccc;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
+    .post-content {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .post-signature {
+      border-top: 1px solid #ddd;
+      margin-top: 15px;
+      padding-top: 5px;
+      font-size: 10px;
+      color: #555;
+      font-style: italic;
+    }
+  }
+}
+
+.blockquote-quote {
+  background-color: #f9f9f9;
+  border-left: 3px solid @header-bg;
+  padding: 5px 10px;
+  margin: 5px 0;
+  font-style: italic;
+}
+
+.btn-forum {
+  background-color: @header-bg;
+  color: #fff;
+  border: 1px solid #29447e;
+  padding: 4px 8px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 11px;
 }

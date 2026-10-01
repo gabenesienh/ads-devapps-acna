@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title><%= thread.titulo_thread %> - Fórum</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1><%= thread.titulo_thread %></h1>
+    </header>
+
+    <div style="margin-bottom: 10px;">
+      <a href="/" class="btn-forum">« Voltar aos Fóruns</a>
+      <% if (usuario && usuario.status !== 'banido') { %>
+        <a href="#resposta-form" class="btn-forum">Responder à Thread</a>
+      <% } %>
+    </div>
+
+    <% posts.forEach((post, index) => { %>
+      <div class="post-card" id="post-<%= post.post_id %>">
+        <!-- Sidebar do Autor -->
+        <div class="post-author">
+          <div class="avatar"></div>
+          <strong><%= post.autor.nome %></strong><br>
+          <span class="badge"><%= post.autor.grupo_nome %></span><br>
+          <% if (post.autor.status === 'banido') { %>
+            <span style="color: red; font-size: 9px;">[BANIDO]</span>
+          <% } %>
+        </div>
+
+        <!-- Conteúdo do Post -->
+        <div class="post-body">
+          <div>
+            <div class="post-header">
+              Postado em: <%= new Date(post.criado_em).toLocaleString() %>
+              <% if (post.editado_em) { %> 
+                | <em>(Editado em <%= new Date(post.editado_em).toLocaleString() %>)</em> 
+              <% } %>
+              
+              <!-- Controles de Moderador e Autor -->
+              <span style="float: right;">
+                <% if (usuario && (usuario.usuario_id === post.autor_id || isModerador) && usuario.status !== 'banido') { %>
+                  <a href="/post/<%= post.post_id %>/editar">Editar</a> |
+                  <form action="/post/<%= post.post_id %>/deletar" method="POST" style="display:inline;">
+                    <button type="submit" style="background:none;border:none;color:red;cursor:pointer;">Excluir</button>
+                  </form>
+                <% } %>
+              </span>
+            </div>
+
+            <!-- Corpo em HTML/Markdown -->
+            <div class="post-content">
+              <%- post.conteudoHTML %>
+            </div>
+
+            <% if (post.anexo) { %>
+              <div style="margin-top: 10px; font-size: 11px;">
+                📎 <strong>Anexo:</strong> <a href="/uploads/posts/<%= post.post_id %>/<%= post.anexo %>" target="_blank"><%= post.anexo %></a>
+              </div>
+            <% } %>
+          </div>
+
+          <!-- Assinatura do Usuário -->
+          <% if (post.autor.assinatura) { %>
+            <div class="post-signature">
+              <%- post.autor.assinatura %>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    <% }); %>
+
+    <!-- Formulário de Resposta -->
+    <% if (usuario && usuario.status !== 'banido') { %>
+      <div id="resposta-form" style="margin-top: 20px; border-top: 2px solid #3b5998; padding-top: 15px;">
+        <h3>Responder a esta discussão</h3>
+        <form action="/post/novo" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="forum_id" value="<%= thread.forum_id %>">
+          <input type="hidden" name="parente_id" value="<%= thread.post_id %>">
+          
+          <div style="margin-bottom: 10px;">
+            <textarea name="conteudo" rows="6" style="width: 100%;" placeholder="Escreva sua resposta (Suporte a Markdown)..." required></textarea>
+          </div>
+          <div style="margin-bottom: 10px;">
+            <label>Anexar arquivo:</label>
+            <input type="file" name="anexo">
+          </div>
+          <button type="submit" class="btn-forum">Enviar Resposta</button>
+        </form>
+      </div>
+    <% } else if (usuario && usuario.status === 'banido') { %>
+      <p style="color: red;">Sua conta está banida. Você não pode publicar novas mensagens[cite: 4].</p>
+    <% } %>
+  </div>
+</body>
+</html>

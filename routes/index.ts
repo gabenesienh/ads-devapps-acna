@@ -1,12 +1,22 @@
-let express = require('express');
-let router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-/* GET home page. */
+/* GET página inicial */
 router.get('/', function(req, res, next) {
-  res.render(
-    'index',
-    { title: `${process.env.APP_NOME} - Página Inicial` }
-  );
+  res.render('index', { 
+    title: 'Fórum Nostálgico',
+    forums: [] 
+  });
+});
+
+/* GET /login */
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'Entrar no Fórum' });
+});
+
+/* GET /register */
+router.get('/register', function(req, res, next) {
+  res.render('register', { title: 'Criar Conta' });
 });
 
 module.exports = router;

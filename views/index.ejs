@@ -1,11 +1,59 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Fórum Nostálgico - Índice</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <header>
+  <div class="user-bar">
+    <% if (locals.usuario) { %>
+      Olá, <strong><%= locals.usuario.nome %></strong> | 
+      <a href="/logout" style="color: #fff;">Sair</a>
+    <% } else { %>
+      <a href="/login" style="color: #fff;">Entrar</a> | 
+      <a href="/register" style="color: #fff;">Registrar-se</a>
+    <% } %>
+  </div>
+  <h1>Fórum de Discussão</h1>
+</header>
+    </header>
+
+    <% (locals.forums || []).filter(f => !f.parente_id).forEach(cat => { %>
+      <table class="forum-table">
+        <thead>
+          <tr>
+            <th colspan="2"><%= cat.nome %> <% if(cat.arquivado_em) { %>(Arquivado)<% } %></th>
+            <th style="width: 100px;">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% const subforums = forums.filter(f => f.parente_id === cat.forum_id); %>
+          <% if (subforums.length === 0) { %>
+            <tr>
+              <td colspan="3">Nenhum subfórum nesta categoria.</td>
+            </tr>
+          <% } else { %>
+            <% subforums.forEach(sub => { %>
+              <tr>
+                <td style="width: 30px;">💬</td>
+                <td>
+                  <strong><a href="/forum/<%= sub.forum_id %>"><%= sub.nome %></a></strong>
+                </td>
+                <td>
+                  <% if (!sub.arquivado_em && locals.usuario) { %>
+                    <a href="/thread/nova?forum_id=<%= sub.forum_id %>" class="btn-forum">+ Nova Thread</a>
+                  <% } %>
+                </td>
+              </tr>
+            <% }); %>
+          <% } %>
+        </tbody>
+      </table>
+    <% }); %>
+  </div>
+</body>
 </html>
