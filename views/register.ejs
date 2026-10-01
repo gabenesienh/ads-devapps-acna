@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar-se - Fórum</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Criar Nova Conta</h2>
+    <form action="/users/register" method="POST">
+      <div>
+        <label>Nome de Usuário:</label><br>
+        <input type="text" name="nome" required>
+      </div>
+      <div style="margin-top: 10px;">
+        <label>E-mail:</label><br>
+        <input type="email" name="email" required>
+      </div>
+      <div style="margin-top: 10px;">
+        <label>Senha:</label><br>
+        <input type="password" name="senha" required>
+      </div>
+      <button type="submit" class="btn-forum" style="margin-top: 15px;">Cadastrar</button>
+    </form>
+  </div>
+</body>
+</html>

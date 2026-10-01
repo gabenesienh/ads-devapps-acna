@@ -38,7 +38,7 @@ app.use(session({
 
 // Variáveis disponíveis em todas as views
 app.use(function(req, res, next) {
-  res.locals.appNome = process.env.APP_NOME || 'ACNA Fórum';
+  res.locals.appNome = process.env.APP_NOME || 'Fórum Nostálgico';
   res.locals.usuario = req.session.usuario || null;
   res.locals.ehModerador = auth.ehModerador(req.session.usuario);
   res.locals.caminho = req.path;

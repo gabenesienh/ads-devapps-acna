@@ -122,4 +122,9 @@ router.get('/pesquisa', rota(async function(req, res) {
   });
 }));
 
+/* GET /register: link antigo da versão do colega, redireciona para o cadastro. */
+router.get('/register', function(req, res) {
+  res.redirect('/cadastro');
+});
+
 module.exports = router;
