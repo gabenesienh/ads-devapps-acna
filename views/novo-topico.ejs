@@ -1,0 +1,31 @@
+<%- include('partials/topo') %>
+
+<div class="crumbs"><a href="/">Início</a> › <a href="/forum/<%= forum.forumId %>"><%= forum.nome %></a> › Novo tópico</div>
+
+<div class="block form-block page-form">
+  <div class="block-head">Criar novo tópico</div>
+  <div class="block-body">
+    <% if (erro) { %><div class="alerta"><%= erro %></div><% } %>
+    <form method="post" action="/forum/<%= forum.forumId %>/novo">
+      <label for="forumId">Fórum</label>
+      <select name="forumId" id="forumId">
+        <% foruns.forEach(function (f) { %>
+          <option value="<%= f.forumId %>" <%= f.forumId === valores.forumId ? 'selected' : '' %>><%= f.nome %></option>
+        <% }) %>
+      </select>
+
+      <label for="titulo">Título</label>
+      <input name="titulo" id="titulo" value="<%= valores.titulo %>" required minlength="3" maxlength="150" placeholder="Resuma sua dúvida em uma frase">
+
+      <label for="conteudo">Mensagem</label>
+      <textarea name="conteudo" id="conteudo" required minlength="2" maxlength="20000" placeholder="Descreva com detalhes…"><%= valores.conteudo %></textarea>
+
+      <div class="form-foot">
+        <a href="/forum/<%= forum.forumId %>">Cancelar</a>
+        <button class="btn btn-primary" type="submit">Publicar tópico</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('partials/rodape') %>

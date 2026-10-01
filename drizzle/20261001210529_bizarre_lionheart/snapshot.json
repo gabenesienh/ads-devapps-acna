@@ -1,0 +1,711 @@
+{
+  "version": "8",
+  "dialect": "postgres",
+  "id": "dd544b0f-7d23-4456-bcf3-c6302b161e77",
+  "prevIds": [
+    "832b9284-5335-4eba-99ac-0319a139eb55"
+  ],
+  "ddl": [
+    {
+      "values": [
+        "membro",
+        "moderador",
+        "admin"
+      ],
+      "name": "cargo",
+      "entityType": "enums",
+      "schema": "public"
+    },
+    {
+      "values": [
+        "ativo",
+        "banido"
+      ],
+      "name": "status",
+      "entityType": "enums",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "categorias",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "foruns",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "postagens",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "topicos",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "usuarios",
+      "entityType": "tables",
+      "schema": "public"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "categoriaId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "categorias"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "criadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "categorias"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "deletadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "categorias"
+    },
+    {
+      "type": "varchar(80)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "nome",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "categorias"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "descricao",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "categorias"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "ordem",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "categorias"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "forumId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "criadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "deletadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "categoriaId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "varchar(80)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "nome",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "varchar(255)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "descricao",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "varchar(16)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'💬'",
+      "generated": null,
+      "identity": null,
+      "name": "icone",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "ordem",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "postagemId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "criadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "deletadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "topicoId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "usuarioId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "conteudo",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "topicoId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "criadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "deletadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "atualizadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "forumId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "usuarioId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "varchar(150)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "titulo",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "name": "fixo",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "name": "fechado",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "visitas",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "type": "serial",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "usuarioId",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "name": "criadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "deletadoEm",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "type": "varchar(256)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "email",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "type": "varchar(80)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "nome",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "type": "varchar(80)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "senha",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "type": "status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'ativo'",
+      "generated": null,
+      "identity": null,
+      "name": "status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "type": "cargo",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'membro'",
+      "generated": null,
+      "identity": null,
+      "name": "cargo",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "usuarios"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "categoriaId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "categorias",
+      "columnsTo": [
+        "categoriaId"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "foruns_categoriaId_categorias_categoriaId_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "foruns"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "topicoId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "topicos",
+      "columnsTo": [
+        "topicoId"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "postagens_topicoId_topicos_topicoId_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "usuarioId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "usuarios",
+      "columnsTo": [
+        "usuarioId"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "postagens_usuarioId_usuarios_usuarioId_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "postagens"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "forumId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "foruns",
+      "columnsTo": [
+        "forumId"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "topicos_forumId_foruns_forumId_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "usuarioId"
+      ],
+      "schemaTo": "public",
+      "tableTo": "usuarios",
+      "columnsTo": [
+        "usuarioId"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "topicos_usuarioId_usuarios_usuarioId_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "topicos"
+    },
+    {
+      "columns": [
+        "categoriaId"
+      ],
+      "nameExplicit": false,
+      "name": "categorias_pkey",
+      "schema": "public",
+      "table": "categorias",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "forumId"
+      ],
+      "nameExplicit": false,
+      "name": "foruns_pkey",
+      "schema": "public",
+      "table": "foruns",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "postagemId"
+      ],
+      "nameExplicit": false,
+      "name": "postagens_pkey",
+      "schema": "public",
+      "table": "postagens",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "topicoId"
+      ],
+      "nameExplicit": false,
+      "name": "topicos_pkey",
+      "schema": "public",
+      "table": "topicos",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "usuarioId"
+      ],
+      "nameExplicit": false,
+      "name": "usuarios_pkey",
+      "schema": "public",
+      "table": "usuarios",
+      "entityType": "pks"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "email"
+      ],
+      "nullsNotDistinct": false,
+      "name": "usuarios_email_key",
+      "schema": "public",
+      "table": "usuarios",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "nome"
+      ],
+      "nullsNotDistinct": false,
+      "name": "usuarios_nome_key",
+      "schema": "public",
+      "table": "usuarios",
+      "entityType": "uniques"
+    }
+  ],
+  "renames": []
+}

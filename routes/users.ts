@@ -1,16 +1,30 @@
-import 'dotenv/config';
-import { drizzle } from 'drizzle-orm/postgres-js';
+import { asc, isNull, sql } from 'drizzle-orm';
+import { db } from '@/db/index';
 import { usuariosTable } from '@/db/schema';
+import { rota } from '@/lib/auth';
 
 let express = require('express');
 let router = express.Router();
 
-/* GET users listing. */
-router.get('/', async function(req, res, next) {
-  const db = drizzle(process.env.DATABASE_URL);
-  const result = await db.select().from(usuariosTable);
+/* GET lista de membros. */
+router.get('/', rota(async function(req, res) {
+  const membros = await db
+    .select({
+      usuarioId: usuariosTable.usuarioId,
+      nome: usuariosTable.nome,
+      cargo: usuariosTable.cargo,
+      status: usuariosTable.status,
+      criadoEm: usuariosTable.criadoEm,
+      mensagens: sql<number>`(
+        select count(*) from "postagens" p
+        where p."usuarioId" = ${usuariosTable.usuarioId} and p."deletadoEm" is null
+      )`.mapWith(Number),
+    })
+    .from(usuariosTable)
+    .where(isNull(usuariosTable.deletadoEm))
+    .orderBy(asc(usuariosTable.nome));
 
-  res.send(result);
-});
+  res.render('membros', { titulo: 'Membros', menu: 'membros', membros });
+}));
 
 module.exports = router;

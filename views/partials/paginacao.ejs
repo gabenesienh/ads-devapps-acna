@@ -1,0 +1,13 @@
+<% if (pag.totalPaginas > 1) { %>
+  <div class="pager">
+    <% if (pag.pagina > 1) { %><a href="<%= url %>pagina=<%= pag.pagina - 1 %>">‹</a><% } %>
+    <% for (let n = 1; n <= pag.totalPaginas; n++) { %>
+      <% if (n === 1 || n === pag.totalPaginas || Math.abs(n - pag.pagina) <= 2) { %>
+        <a href="<%= url %>pagina=<%= n %>" class="<%= n === pag.pagina ? 'on' : '' %>"><%= n %></a>
+      <% } else if (Math.abs(n - pag.pagina) === 3) { %>
+        <span class="dots">…</span>
+      <% } %>
+    <% } %>
+    <% if (pag.pagina < pag.totalPaginas) { %><a href="<%= url %>pagina=<%= pag.pagina + 1 %>">›</a><% } %>
+  </div>
+<% } %>

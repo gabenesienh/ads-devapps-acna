@@ -1,11 +1,73 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('partials/topo') %>
+
+<div class="crumbs">Início</div>
+<div class="layout">
+  <div>
+    <% if (categorias.length === 0) { %>
+      <div class="block"><div class="vazio">Nenhuma categoria cadastrada ainda. Rode <code>npm run db:seed</code> para criar dados de exemplo.</div></div>
+    <% } %>
+
+    <% categorias.forEach(function (categoria) { %>
+      <div class="block">
+        <div class="block-head"><%= categoria.nome %> <small><%= categoria.descricao || '' %></small></div>
+        <div class="block-sub"><span>Fórum</span><span class="c">Tópicos</span><span class="c">Mensagens</span><span>Última mensagem</span></div>
+
+        <% if (categoria.foruns.length === 0) { %>
+          <div class="vazio">Nenhum fórum nesta categoria.</div>
+        <% } %>
+
+        <% categoria.foruns.forEach(function (forum) { %>
+          <div class="row">
+            <div class="main">
+              <div class="ico <%= forum.ultima && (Date.now() - new Date(forum.ultima.criadoEm)) < 86400000 ? 'new' : '' %>"><%= forum.icone %></div>
+              <div>
+                <a class="title" href="/forum/<%= forum.forumId %>"><%= forum.nome %></a>
+                <div class="desc"><%= forum.descricao || '' %></div>
+              </div>
+            </div>
+            <div class="num"><b><%= h.numero(forum.totalTopicos) %></b></div>
+            <div class="num"><b><%= h.numero(forum.totalPostagens) %></b></div>
+            <div class="last">
+              <% if (forum.ultima) { %>
+                <div class="av" style="background:<%= h.corAvatar(forum.ultima.autorId) %>"><%= h.inicial(forum.ultima.autorNome) %></div>
+                <div>
+                  <a class="t" href="/topico/<%= forum.ultima.topicoId %>?pagina=9999"><%= forum.ultima.titulo %></a>
+                  por <%= forum.ultima.autorNome %> · <%= h.formatarData(forum.ultima.criadoEm) %>
+                </div>
+              <% } else { %>
+                <span>Nenhuma mensagem</span>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% }) %>
+  </div>
+
+  <aside class="side">
+    <div class="block">
+      <div class="block-head">Membros online</div>
+      <div class="block-body online">
+        <% if (online.length === 0) { %>
+          <span class="hint">Nenhum membro online agora.</span>
+        <% } else { %>
+          <% online.forEach(function (m, i) { %><span><%= m.nome %></span><%= i < online.length - 1 ? ', ' : '' %><% }) %>
+          <div class="hint"><%= online.length %> <%= online.length === 1 ? 'membro' : 'membros' %> nos últimos 5 minutos</div>
+        <% } %>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-head">Estatísticas</div>
+      <div class="block-body">
+        <ul>
+          <li>Tópicos <b><%= h.numero(stats.topicos) %></b></li>
+          <li>Mensagens <b><%= h.numero(stats.postagens) %></b></li>
+          <li>Membros <b><%= h.numero(stats.usuarios) %></b></li>
+          <% if (stats.novoMembro) { %><li>Novo membro <a href="/users"><%= stats.novoMembro.nome %></a></li><% } %>
+        </ul>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<%- include('partials/rodape') %>

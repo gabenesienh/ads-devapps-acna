@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= locals.titulo ? titulo + ' - ' : '' %><%= appNome %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="/">
+    <span class="box"><%= h.inicial(appNome) %></span>
+    <div><%= appNome %><small>Comunidade, dúvidas e projetos</small></div>
+  </a>
+  <div class="userbox">
+    <% if (usuario) { %>
+      <span class="ola">
+        <span class="av av-sm" style="background:<%= h.corAvatar(usuario.usuarioId) %>"><%= h.inicial(usuario.nome) %></span>
+        <%= usuario.nome %>
+      </span>
+      <form method="post" action="/logout"><button class="btn btn-light" type="submit">Sair</button></form>
+    <% } else { %>
+      <a class="btn btn-light" href="/login">Entrar</a>
+      <a class="btn btn-accent" href="/cadastro">Cadastrar</a>
+    <% } %>
+  </div>
+</div></header>
+
+<nav class="menu"><div class="wrap">
+  <a href="/" class="<%= locals.menu === 'foruns' ? 'on' : '' %>">Fóruns</a>
+  <a href="/recentes" class="<%= locals.menu === 'recentes' ? 'on' : '' %>">Tópicos recentes</a>
+  <a href="/users" class="<%= locals.menu === 'membros' ? 'on' : '' %>">Membros</a>
+  <a href="/pesquisa" class="<%= locals.menu === 'pesquisa' ? 'on' : '' %>">Pesquisar</a>
+</div></nav>
+
+<main class="wrap">

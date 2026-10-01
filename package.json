@@ -3,15 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "tsx --watch ./bin/www"
+    "start": "tsx --watch ./bin/www",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx ./db/seed.ts",
+    "db:reset": "tsx ./db/resetar.ts"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^18.0.1",
     "drizzle-orm": "^1.0.0-rc.4",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-session": "^1.18.1",
     "http-errors": "~1.6.3",
     "less-middleware": "~2.2.1",
     "morgan": "~1.9.1",

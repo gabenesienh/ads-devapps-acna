@@ -1,0 +1,38 @@
+<%- include('partials/topo') %>
+
+<div class="auth">
+  <div class="block form-block">
+    <div class="block-head">Entrar</div>
+    <div class="block-body">
+      <% if (erroLogin) { %><div class="alerta"><%= erroLogin %></div><% } %>
+      <form method="post" action="/login">
+        <label for="login">E-mail ou nome de usuário</label>
+        <input name="login" id="login" value="<%= login %>" required autocomplete="username">
+        <label for="senha">Senha</label>
+        <input type="password" name="senha" id="senha" required autocomplete="current-password">
+        <div class="form-foot"><span></span><button class="btn btn-primary" type="submit">Entrar</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="block form-block">
+    <div class="block-head">Criar conta</div>
+    <div class="block-body">
+      <% if (erroCadastro) { %><div class="alerta"><%= erroCadastro %></div><% } %>
+      <form method="post" action="/cadastro">
+        <label for="nome">Nome de usuário</label>
+        <input name="nome" id="nome" value="<%= cadastro.nome %>" required minlength="3" maxlength="80" pattern="[A-Za-z0-9_.\-]+" autocomplete="username">
+        <div class="hint">De 3 a 80 caracteres: letras, números, ponto, _ ou -.</div>
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email" value="<%= cadastro.email %>" required maxlength="256" autocomplete="email">
+        <label for="senhaNova">Senha</label>
+        <input type="password" name="senha" id="senhaNova" required minlength="6" autocomplete="new-password">
+        <label for="confirmacao">Confirmar senha</label>
+        <input type="password" name="confirmacao" id="confirmacao" required minlength="6" autocomplete="new-password">
+        <div class="form-foot"><span></span><button class="btn btn-accent" type="submit">Cadastrar</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/rodape') %>

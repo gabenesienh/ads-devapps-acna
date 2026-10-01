@@ -1,0 +1,82 @@
+<%- include('partials/topo') %>
+
+<div class="crumbs">
+  <a href="/">Início</a> › <%= topico.categoriaNome %> › <a href="/forum/<%= topico.forumId %>"><%= topico.forumNome %></a>
+</div>
+
+<div class="toolbar">
+  <h1>
+    <% if (topico.fixo) { %><span class="tag">Fixo</span><% } %>
+    <% if (topico.fechado) { %><span class="tag lock">Fechado</span><% } %>
+    <%= topico.titulo %>
+  </h1>
+  <%- include('partials/paginacao', { url: '/topico/' + topico.topicoId + '?' }) %>
+</div>
+
+<% if (ehModerador) { %>
+  <div class="mod">
+    <span class="hint">Moderação:</span>
+    <form method="post" action="/topico/<%= topico.topicoId %>/fixar"><button class="btn btn-small"><%= topico.fixo ? 'Desafixar' : 'Fixar' %></button></form>
+    <form method="post" action="/topico/<%= topico.topicoId %>/fechar"><button class="btn btn-small"><%= topico.fechado ? 'Reabrir' : 'Fechar' %></button></form>
+  </div>
+<% } %>
+
+<% postagens.forEach(function (p, i) { %>
+  <article class="post" id="p<%= p.postagemId %>">
+    <div class="author">
+      <div class="av" style="background:<%= h.corAvatar(p.autorId) %>"><%= h.inicial(p.autorNome) %></div>
+      <div>
+        <div class="name"><%= p.autorNome %></div>
+        <div class="role"><%= h.nomeCargo(p.autorCargo) %></div>
+        <div class="meta">Mensagens: <%= h.numero(p.autorMensagens) %><br>Desde: <%= h.formatarMesAno(p.autorDesde) %></div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="phead"><span><%= h.formatarData(p.criadoEm) %></span><a href="#p<%= p.postagemId %>">#<%= pag.offset + i + 1 %></a></div>
+      <div class="body"><%- h.renderizarConteudo(p.conteudo) %></div>
+      <% if (podeResponder) { %>
+        <div class="actions">
+          <a href="#responder" class="citar" data-nome="<%= p.autorNome %>" data-texto="<%= p.conteudo %>">Citar</a>
+          <a href="#responder">Responder</a>
+        </div>
+      <% } %>
+    </div>
+  </article>
+<% }) %>
+
+<div class="toolbar">
+  <span></span>
+  <%- include('partials/paginacao', { url: '/topico/' + topico.topicoId + '?' }) %>
+</div>
+
+<% if (podeResponder) { %>
+  <div class="block form-block" id="responder">
+    <div class="block-head">Responder</div>
+    <div class="block-body">
+      <form method="post" action="/topico/<%= topico.topicoId %>/responder">
+        <textarea name="conteudo" id="conteudo" required minlength="2" maxlength="20000" placeholder="Escreva sua resposta…"></textarea>
+        <div class="form-foot">
+          <span class="hint">Dica: use [quote=nome]texto[/quote] para citar alguém.</span>
+          <button class="btn btn-primary" type="submit">Enviar resposta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Botão "Citar": coloca a mensagem citada na caixa de resposta
+    document.querySelectorAll('.citar').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var caixa = document.getElementById('conteudo');
+        var texto = link.dataset.texto.replace(/\[quote=[^\]]*\][\s\S]*?\[\/quote\]\n?/g, '').trim();
+        caixa.value += '[quote=' + link.dataset.nome + ']' + texto + '[/quote]\n';
+        caixa.focus();
+      });
+    });
+  </script>
+<% } else if (!usuario) { %>
+  <div class="block"><div class="vazio"><a href="/login">Entre</a> ou <a href="/cadastro">cadastre-se</a> para responder.</div></div>
+<% } else { %>
+  <div class="block"><div class="vazio">🔒 Este tópico está fechado para novas respostas.</div></div>
+<% } %>
+
+<%- include('partials/rodape') %>

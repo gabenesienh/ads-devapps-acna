@@ -1,0 +1,69 @@
+<%- include('partials/topo') %>
+
+<div class="crumbs">
+  <a href="/">Início</a> ›
+  <% if (locals.forum) { %><%= forum.categoriaNome %> › <%= forum.nome %><% } else { %><%= cabecalho %><% } %>
+</div>
+
+<div class="toolbar">
+  <h1><%= cabecalho %></h1>
+  <% if (locals.forum) { %>
+    <a class="btn btn-primary" href="/forum/<%= forum.forumId %>/novo">+ Novo tópico</a>
+  <% } %>
+</div>
+<% if (locals.forum && forum.descricao) { %><p class="hint intro"><%= forum.descricao %></p><% } %>
+
+<% if (locals.menu === 'pesquisa') { %>
+  <form class="busca" method="get" action="/pesquisa">
+    <input name="q" value="<%= pesquisa %>" placeholder="Pesquisar por título ou conteúdo das mensagens…" autofocus>
+    <button class="btn btn-primary" type="submit">Pesquisar</button>
+  </form>
+<% } %>
+
+<% if (locals.menu !== 'pesquisa' || pesquisa) { %>
+<div class="block">
+  <div class="block-sub"><span>Tópico</span><span class="c">Respostas</span><span class="c">Visitas</span><span>Última resposta</span></div>
+
+  <% if (topicos.length === 0) { %>
+    <div class="vazio">
+      <% if (locals.menu === 'pesquisa') { %>
+        <%= pesquisa.length < 2 ? 'Digite pelo menos 2 letras.' : 'Nenhum tópico encontrado.' %>
+      <% } else { %>
+        Nenhum tópico ainda. Seja o primeiro a postar!
+      <% } %>
+    </div>
+  <% } %>
+
+  <% topicos.forEach(function (t) { %>
+    <div class="row">
+      <div class="main">
+        <div class="ico <%= (Date.now() - new Date(t.atualizadoEm)) < 86400000 ? 'new' : '' %>"><%= t.fixo ? '📌' : (t.fechado ? '🔒' : '💬') %></div>
+        <div>
+          <% if (t.fixo) { %><span class="tag">Fixo</span><% } %>
+          <% if (t.fechado) { %><span class="tag lock">Fechado</span><% } %>
+          <a class="title" href="/topico/<%= t.topicoId %>"><%= t.titulo %></a>
+          <div class="desc">
+            por <%= t.autorNome %> · <%= h.formatarData(t.criadoEm) %>
+            <% if (mostrarForum) { %> · em <a href="/forum/<%= t.forumId %>"><%= t.forumNome %></a><% } %>
+          </div>
+        </div>
+      </div>
+      <div class="num"><b><%= h.numero(t.respostas) %></b></div>
+      <div class="num"><b><%= h.numero(t.visitas) %></b></div>
+      <div class="last">
+        <div class="av" style="background:<%= h.corAvatar(t.ultimoAutorId) %>"><%= h.inicial(t.ultimoAutorNome) %></div>
+        <div><a class="t" href="/topico/<%= t.topicoId %>?pagina=9999"><%= t.ultimoAutorNome %></a><%= h.formatarData(t.atualizadoEm) %></div>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<div class="toolbar">
+  <span class="hint">
+    <% if (pag.total > 0) { %>Mostrando <%= pag.offset + 1 %>–<%= pag.offset + topicos.length %> de <%= h.numero(pag.total) %> tópicos<% } %>
+  </span>
+  <%- include('partials/paginacao') %>
+</div>
+<% } %>
+
+<%- include('partials/rodape') %>

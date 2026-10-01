@@ -1,0 +1,21 @@
+<%- include('partials/topo') %>
+
+<div class="crumbs"><a href="/">Início</a> › Membros</div>
+<div class="toolbar"><h1>Membros</h1><span class="hint"><%= h.numero(membros.length) %> cadastrados</span></div>
+
+<div class="block">
+  <div class="block-sub membros"><span>Membro</span><span class="c">Mensagens</span><span>Cargo</span><span>Desde</span></div>
+  <% membros.forEach(function (m) { %>
+    <div class="row membros">
+      <div class="main">
+        <div class="av" style="background:<%= h.corAvatar(m.usuarioId) %>"><%= h.inicial(m.nome) %></div>
+        <div class="title"><%= m.nome %><% if (m.status === 'banido') { %> <span class="tag lock">Banido</span><% } %></div>
+      </div>
+      <div class="num"><b><%= h.numero(m.mensagens) %></b></div>
+      <div><%= h.nomeCargo(m.cargo) %></div>
+      <div class="hint"><%= h.formatarMesAno(m.criadoEm) %></div>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('partials/rodape') %>

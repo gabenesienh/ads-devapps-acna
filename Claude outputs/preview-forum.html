@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prévia do Fórum ACNA</title>
+<style>
+  :root{
+    --bg:#e9edf2; --card:#fff; --line:#d6dde6; --text:#1f2933; --muted:#66788a;
+    --brand:#1d4f91; --brand-2:#2b6cc4; --head:#183e72; --accent:#f2a516; --row-hover:#f5f8fc;
+    --sub:#eef3f9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--brand-2);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+
+  /* banner de prévia */
+  .preview-bar{background:#fff7e0;border-bottom:1px solid #f0d58a;font-size:13px;padding:8px 0}
+  .preview-bar .wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .preview-bar b{margin-right:6px}
+  .preview-bar button{border:1px solid #d9b65a;background:#fff;border-radius:4px;padding:3px 10px;cursor:pointer;font:inherit}
+  .preview-bar button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  /* cabeçalho */
+  header.top{background:linear-gradient(180deg,var(--head),var(--brand));color:#fff}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;padding:18px 16px;gap:12px;flex-wrap:wrap}
+  .logo{font-size:26px;font-weight:700;letter-spacing:.5px;display:flex;align-items:center;gap:10px}
+  .logo span.box{width:38px;height:38px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:#183e72;font-size:20px}
+  .logo small{display:block;font-size:12px;font-weight:400;opacity:.8;letter-spacing:0}
+  .userbox{display:flex;gap:8px}
+  .btn{display:inline-block;border:0;border-radius:4px;padding:7px 14px;font:inherit;font-weight:600;cursor:pointer}
+  .btn-light{background:rgba(255,255,255,.15);color:#fff}
+  .btn-accent{background:var(--accent);color:#1b2a3a}
+  .btn-primary{background:var(--brand-2);color:#fff}
+  nav.menu{background:#13335e}
+  nav.menu .wrap{display:flex;gap:2px;overflow-x:auto}
+  nav.menu a{color:#d6e4f7;padding:10px 14px;display:block;white-space:nowrap}
+  nav.menu a.on,nav.menu a:hover{background:rgba(255,255,255,.1);color:#fff;text-decoration:none}
+
+  .crumbs{margin:16px 0 10px;color:var(--muted);font-size:13px}
+  .crumbs a{color:var(--muted)}
+  .layout{display:grid;grid-template-columns:1fr 260px;gap:18px;margin-bottom:30px}
+  @media (max-width:860px){.layout{grid-template-columns:1fr}}
+
+  /* blocos */
+  .block{background:var(--card);border:1px solid var(--line);border-radius:6px;margin-bottom:16px;overflow:hidden}
+  .block-head{background:var(--brand);color:#fff;padding:9px 14px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  .block-head small{font-weight:400;opacity:.8}
+  .block-sub{background:var(--sub);color:var(--muted);font-size:12px;padding:6px 14px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 90px 90px 220px;gap:10px}
+  .row{display:grid;grid-template-columns:1fr 90px 90px 220px;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);align-items:center}
+  .row:last-child{border-bottom:0}
+  .row:hover{background:var(--row-hover)}
+  .row .main{display:flex;gap:12px;align-items:flex-start}
+  .ico{flex:0 0 36px;height:36px;border-radius:50%;background:var(--sub);display:grid;place-items:center;color:var(--brand);font-size:17px}
+  .ico.new{background:var(--brand-2);color:#fff}
+  .row .title{font-weight:600;font-size:15px}
+  .row .desc{color:var(--muted);font-size:13px}
+  .num{text-align:center;color:var(--muted)} .num b{display:block;color:var(--text)}
+  .last{font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}
+  .last .t{color:var(--text);font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+  .av{width:30px;height:30px;border-radius:50%;flex:0 0 30px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px}
+  @media (max-width:700px){.row,.block-sub{grid-template-columns:1fr}.num,.block-sub span:not(:first-child){display:none}}
+  .tag{font-size:11px;padding:1px 6px;border-radius:3px;background:#fde9b8;color:#7a5600;font-weight:600;margin-right:4px}
+  .tag.lock{background:#e2e6eb;color:#4a5a6a}
+
+  /* sidebar */
+  .side .block-body{padding:12px 14px;font-size:13px}
+  .side ul{list-style:none;margin:0;padding:0}
+  .side li{display:flex;justify-content:space-between;padding:3px 0}
+  .online a{margin-right:4px}
+
+  /* toolbar */
+  .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap}
+  .toolbar h1{font-size:22px;margin:0}
+  .pager{display:flex;gap:4px}
+  .pager a{border:1px solid var(--line);background:#fff;padding:3px 9px;border-radius:3px;color:var(--text)}
+  .pager a.on{background:var(--brand-2);color:#fff;border-color:var(--brand-2)}
+
+  /* posts */
+  .post{display:grid;grid-template-columns:170px 1fr;background:var(--card);border:1px solid var(--line);border-radius:6px;margin-bottom:12px;overflow:hidden}
+  .post .author{background:var(--sub);padding:16px 12px;text-align:center;border-right:1px solid var(--line)}
+  .post .author .av{width:72px;height:72px;font-size:28px;margin:0 auto 8px}
+  .post .author .name{font-weight:700}
+  .post .author .role{font-size:12px;color:var(--muted)}
+  .post .author .meta{font-size:12px;color:var(--muted);margin-top:8px}
+  .post .content{padding:12px 16px;display:flex;flex-direction:column}
+  .post .phead{font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:10px;display:flex;justify-content:space-between}
+  .post .body{flex:1}
+  .post .actions{text-align:right;font-size:12px;margin-top:10px}
+  .post .actions a{margin-left:12px;color:var(--muted)}
+  @media (max-width:640px){.post{grid-template-columns:1fr}.post .author{display:flex;gap:10px;align-items:center;text-align:left;border-right:0;border-bottom:1px solid var(--line)}.post .author .av{width:40px;height:40px;font-size:16px;margin:0}.post .author .meta{display:none}}
+  blockquote{margin:8px 0;padding:8px 12px;border-left:3px solid var(--brand-2);background:var(--sub);font-size:13px}
+
+  /* forms */
+  .form-block .block-body{padding:16px}
+  label{display:block;font-weight:600;margin:10px 0 4px}
+  input,textarea,select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:4px;font:inherit;background:#fff}
+  textarea{min-height:140px;resize:vertical}
+  .auth{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0 30px}
+  @media (max-width:760px){.auth{grid-template-columns:1fr}}
+  .hint{font-size:12px;color:var(--muted)}
+
+  footer{background:#13335e;color:#a9bdd8;font-size:12px;padding:16px 0;text-align:center}
+  .view{display:none}.view.on{display:block}
+</style>
+</head>
+<body>
+
+<div class="preview-bar"><div class="wrap">
+  <b>PRÉVIA — clique para ver cada página:</b>
+  <button data-v="home" class="on">Página inicial</button>
+  <button data-v="forum">Lista de tópicos</button>
+  <button data-v="topic">Tópico</button>
+  <button data-v="new">Novo tópico</button>
+  <button data-v="auth">Login / Cadastro</button>
+</div></div>
+
+<header class="top"><div class="wrap">
+  <div class="logo"><span class="box">A</span><div>ACNA Fórum<small>Comunidade, dúvidas e projetos</small></div></div>
+  <div class="userbox">
+    <a class="btn btn-light" href="#" data-go="auth">Entrar</a>
+    <a class="btn btn-accent" href="#" data-go="auth">Cadastrar</a>
+  </div>
+</div></header>
+<nav class="menu"><div class="wrap">
+  <a href="#" class="on" data-go="home">Fóruns</a>
+  <a href="#">Tópicos recentes</a>
+  <a href="#">Membros</a>
+  <a href="#">Pesquisar</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ============ PÁGINA INICIAL ============ -->
+<section class="view on" id="v-home">
+  <div class="crumbs">Início</div>
+  <div class="layout">
+    <div>
+      <div class="block">
+        <div class="block-head">Geral <small>Assuntos da comunidade</small></div>
+        <div class="block-sub"><span>Fórum</span><span style="text-align:center">Tópicos</span><span style="text-align:center">Mensagens</span><span>Última mensagem</span></div>
+        <div class="row"><div class="main"><div class="ico new">📢</div><div><a class="title" href="#" data-go="forum">Avisos e Regras</a><div class="desc">Comunicados da equipe e regras do fórum. Leia antes de postar!</div></div></div>
+          <div class="num"><b>12</b></div><div class="num"><b>48</b></div>
+          <div class="last"><div class="av" style="background:#c0392b">R</div><div><a class="t" href="#" data-go="topic">Regras atualizadas (out/2026)</a>por Rafael · hoje, 09:14</div></div></div>
+        <div class="row"><div class="main"><div class="ico">👋</div><div><a class="title" href="#" data-go="forum">Apresentações</a><div class="desc">Chegou agora? Conte um pouco sobre você.</div></div></div>
+          <div class="num"><b>87</b></div><div class="num"><b>412</b></div>
+          <div class="last"><div class="av" style="background:#16a085">J</div><div><a class="t" href="#" data-go="topic">Olá, sou a Júlia!</a>por julia_s · ontem, 22:40</div></div></div>
+        <div class="row"><div class="main"><div class="ico">💬</div><div><a class="title" href="#" data-go="forum">Conversa Livre</a><div class="desc">Qualquer assunto que não se encaixe nos outros fóruns.</div></div></div>
+          <div class="num"><b>203</b></div><div class="num"><b>2.341</b></div>
+          <div class="last"><div class="av" style="background:#8e44ad">L</div><div><a class="t" href="#" data-go="topic">Qual jogo vocês estão jogando?</a>por lucas.m · hoje, 13:02</div></div></div>
+      </div>
+
+      <div class="block">
+        <div class="block-head">Desenvolvimento <small>Programação e projetos</small></div>
+        <div class="block-sub"><span>Fórum</span><span style="text-align:center">Tópicos</span><span style="text-align:center">Mensagens</span><span>Última mensagem</span></div>
+        <div class="row"><div class="main"><div class="ico new">❓</div><div><a class="title" href="#" data-go="forum">Dúvidas e Ajuda</a><div class="desc">Travou em algo? Peça ajuda aqui.</div></div></div>
+          <div class="num"><b>156</b></div><div class="num"><b>1.024</b></div>
+          <div class="last"><div class="av" style="background:#2980b9">M</div><div><a class="t" href="#" data-go="topic">Erro ao conectar no PostgreSQL</a>por mateus · hoje, 14:31</div></div></div>
+        <div class="row"><div class="main"><div class="ico">🛠️</div><div><a class="title" href="#" data-go="forum">Projetos da Comunidade</a><div class="desc">Mostre o que você está construindo.</div></div></div>
+          <div class="num"><b>41</b></div><div class="num"><b>389</b></div>
+          <div class="last"><div class="av" style="background:#d35400">B</div><div><a class="t" href="#" data-go="topic">Meu primeiro app em Express</a>por bruna_dev · 29/09/2026</div></div></div>
+        <div class="row"><div class="main"><div class="ico">📚</div><div><a class="title" href="#" data-go="forum">Tutoriais</a><div class="desc">Guias e materiais de estudo.</div></div></div>
+          <div class="num"><b>33</b></div><div class="num"><b>140</b></div>
+          <div class="last"><div class="av" style="background:#27ae60">P</div><div><a class="t" href="#" data-go="topic">Drizzle ORM do zero</a>por pedro · 27/09/2026</div></div></div>
+      </div>
+    </div>
+
+    <aside class="side">
+      <div class="block"><div class="block-head">Membros online</div>
+        <div class="block-body online"><a href="#">mateus</a>, <a href="#">julia_s</a>, <a href="#">lucas.m</a>, <a href="#">Rafael</a><div class="hint" style="margin-top:6px">4 membros e 9 visitantes</div></div></div>
+      <div class="block"><div class="block-head">Estatísticas</div>
+        <div class="block-body"><ul><li>Tópicos <b>532</b></li><li>Mensagens <b>4.354</b></li><li>Membros <b>218</b></li><li>Novo membro <a href="#">julia_s</a></li></ul></div></div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ LISTA DE TÓPICOS ============ -->
+<section class="view" id="v-forum">
+  <div class="crumbs"><a href="#" data-go="home">Início</a> › Desenvolvimento › Dúvidas e Ajuda</div>
+  <div class="toolbar"><h1>Dúvidas e Ajuda</h1><a class="btn btn-primary" href="#" data-go="new">+ Novo tópico</a></div>
+  <div class="block">
+    <div class="block-sub"><span>Tópico</span><span style="text-align:center">Respostas</span><span style="text-align:center">Visitas</span><span>Última resposta</span></div>
+    <div class="row"><div class="main"><div class="ico">📌</div><div><span class="tag">Fixo</span><a class="title" href="#" data-go="topic">Como pedir ajuda corretamente</a><div class="desc">por Rafael · 02/09/2026</div></div></div>
+      <div class="num"><b>3</b></div><div class="num"><b>812</b></div>
+      <div class="last"><div class="av" style="background:#c0392b">R</div><div><span class="t">Rafael</span>15/09/2026</div></div></div>
+    <div class="row"><div class="main"><div class="ico new">💬</div><div><a class="title" href="#" data-go="topic">Erro ao conectar no PostgreSQL</a><div class="desc">por mateus · hoje, 11:05</div></div></div>
+      <div class="num"><b>6</b></div><div class="num"><b>54</b></div>
+      <div class="last"><div class="av" style="background:#2980b9">M</div><div><span class="t">mateus</span>hoje, 14:31</div></div></div>
+    <div class="row"><div class="main"><div class="ico">💬</div><div><a class="title" href="#" data-go="topic">Diferença entre let e const?</a><div class="desc">por ana.c · ontem, 18:22</div></div></div>
+      <div class="num"><b>4</b></div><div class="num"><b>77</b></div>
+      <div class="last"><div class="av" style="background:#8e44ad">L</div><div><span class="t">lucas.m</span>ontem, 20:10</div></div></div>
+    <div class="row"><div class="main"><div class="ico">🔒</div><div><span class="tag lock">Fechado</span><a class="title" href="#" data-go="topic">EJS não renderiza variável</a><div class="desc">por bruna_dev · 25/09/2026</div></div></div>
+      <div class="num"><b>9</b></div><div class="num"><b>201</b></div>
+      <div class="last"><div class="av" style="background:#d35400">B</div><div><span class="t">bruna_dev</span>26/09/2026</div></div></div>
+  </div>
+  <div class="toolbar"><span class="hint">Mostrando 1–4 de 156 tópicos</span><div class="pager"><a class="on" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">›</a></div></div>
+</section>
+
+<!-- ============ TÓPICO ============ -->
+<section class="view" id="v-topic">
+  <div class="crumbs"><a href="#" data-go="home">Início</a> › Desenvolvimento › <a href="#" data-go="forum">Dúvidas e Ajuda</a></div>
+  <div class="toolbar"><h1>Erro ao conectar no PostgreSQL</h1><div class="pager"><a class="on" href="#">1</a><a href="#">2</a></div></div>
+
+  <article class="post">
+    <div class="author"><div class="av" style="background:#2980b9">M</div><div><div class="name">mateus</div><div class="role">Membro</div><div class="meta">Mensagens: 27<br>Desde: set/2026</div></div></div>
+    <div class="content">
+      <div class="phead"><span>hoje, 11:05</span><span>#1</span></div>
+      <div class="body">Pessoal, estou tentando rodar o projeto mas aparece <code>ECONNREFUSED</code> quando acesso <code>/users</code>. Já conferi o <code>.env</code>. Alguém sabe o que pode ser?</div>
+      <div class="actions"><a href="#">Citar</a><a href="#">Responder</a></div>
+    </div>
+  </article>
+
+  <article class="post">
+    <div class="author"><div class="av" style="background:#27ae60">P</div><div><div class="name">pedro</div><div class="role">Moderador</div><div class="meta">Mensagens: 512<br>Desde: jan/2026</div></div></div>
+    <div class="content">
+      <div class="phead"><span>hoje, 11:40</span><span>#2</span></div>
+      <div class="body"><blockquote><b>mateus disse:</b> aparece ECONNREFUSED…</blockquote>Verifica se o serviço do Postgres está rodando e se a porta no <code>DATABASE_URL</code> é a 5432.</div>
+      <div class="actions"><a href="#">Citar</a><a href="#">Responder</a></div>
+    </div>
+  </article>
+
+  <div class="block form-block"><div class="block-head">Responder</div>
+    <div class="block-body"><textarea placeholder="Escreva sua resposta…"></textarea><div style="text-align:right;margin-top:10px"><button class="btn btn-primary">Enviar resposta</button></div></div></div>
+</section>
+
+<!-- ============ NOVO TÓPICO ============ -->
+<section class="view" id="v-new">
+  <div class="crumbs"><a href="#" data-go="home">Início</a> › <a href="#" data-go="forum">Dúvidas e Ajuda</a> › Novo tópico</div>
+  <div class="block form-block" style="margin-bottom:30px"><div class="block-head">Criar novo tópico</div>
+    <div class="block-body">
+      <label>Fórum</label><select><option>Dúvidas e Ajuda</option><option>Conversa Livre</option></select>
+      <label>Título</label><input placeholder="Resuma sua dúvida em uma frase">
+      <label>Mensagem</label><textarea placeholder="Descreva com detalhes…"></textarea>
+      <div style="text-align:right;margin-top:12px"><button class="btn btn-primary">Publicar tópico</button></div>
+    </div></div>
+</section>
+
+<!-- ============ LOGIN / CADASTRO ============ -->
+<section class="view" id="v-auth">
+  <div class="auth">
+    <div class="block form-block"><div class="block-head">Entrar</div><div class="block-body">
+      <label>E-mail ou nome de usuário</label><input>
+      <label>Senha</label><input type="password">
+      <div style="margin-top:14px"><button class="btn btn-primary">Entrar</button></div>
+    </div></div>
+    <div class="block form-block"><div class="block-head">Criar conta</div><div class="block-body">
+      <label>Nome de usuário</label><input><div class="hint">Até 80 caracteres, único no fórum.</div>
+      <label>E-mail</label><input type="email">
+      <label>Senha</label><input type="password">
+      <label>Confirmar senha</label><input type="password">
+      <div style="margin-top:14px"><button class="btn btn-accent">Cadastrar</button></div>
+    </div></div>
+  </div>
+</section>
+
+</main>
+<footer>ACNA Fórum · Trabalho escolar · Express + EJS + PostgreSQL (Drizzle)</footer>
+
+<script>
+  function show(v){
+    document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id==='v-'+v));
+    document.querySelectorAll('.preview-bar button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('.preview-bar button').forEach(b=>b.onclick=()=>show(b.dataset.v));
+  document.querySelectorAll('[data-go]').forEach(a=>a.onclick=e=>{e.preventDefault();show(a.dataset.go)});
+</script>
+</body>
+</html>
